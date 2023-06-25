@@ -1,7 +1,9 @@
 package com.cibertec.daw.CL3;
 
 import com.cibertec.daw.CL3.entity.Clientes;
+import com.cibertec.daw.CL3.entity.Productos;
 import com.cibertec.daw.CL3.service.ClientesService;
+import com.cibertec.daw.CL3.service.ProductosService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,7 +25,7 @@ public class Cl3Application {
 
 	//TODO: Debe crearse un SCHEMA en MYSQL con el nombre cl3_examen
 	@Bean
-	public CommandLineRunner clr(ClientesService userService){
+	public CommandLineRunner clr(ClientesService userService, ProductosService productosService){
 		return args -> {
 			String[] clientName = {"Daniel","Pedro","Santiago","Jorge","Juan","Kiara","Gerardo"};
 			String[] clientLastname = {"Orosco","Gonzales","Osorio","Aguilar","Gabriel","Gutierrez","Lopez"};
@@ -37,6 +39,15 @@ public class Cl3Application {
 						.build();
 				userService.guardarCliente(client);
 			}
+
+			var producto = Productos.builder()
+					.producto("Coca Cola")
+					.precio(5.20)
+					.descripcion("Bebida refrescante")
+					.stock(50)
+					.build();
+
+			productosService.guardar(producto);
 		};
 	}
 }
